@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PedidosNet.Data;
+using PedidosNet.Domain.Entities;
+using PedidosNet.Domain.Factories;
 using PedidosNet.DTOs;
-using PedidosNet.Models;
+//using PedidosNet.Models;
 
 namespace PedidosNet.Controllers;
 
@@ -11,10 +13,12 @@ namespace PedidosNet.Controllers;
 public class PedidoController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly IPedidoFactory _pedidoFactory;
 
-    public PedidoController(AppDbContext context)
+    public PedidoController(AppDbContext context, IPedidoFactory pedidoFactory)
     {
         _context = context;
+        _pedidoFactory = pedidoFactory;
     }
 
     [HttpGet]
@@ -65,14 +69,15 @@ public class PedidoController : ControllerBase
             });
         }
 
-        var pedido = new Pedido
-        {
-            Id = Guid.NewGuid(),
-            ClienteId = cliente.Id,
-            Status = "Pendente",
-            DataCriacao = DateTime.Now,
-            Itens = itens
-        };
+        // var pedido = new Pedido
+        // {
+        //     Id = Guid.NewGuid(),
+        //     ClienteId = cliente.Id,
+        //     Status = "Pendente",
+        //     DataCriacao = DateTime.Now,
+        //     Itens = itens
+        // };
+        var pedido = _pedidoFactory.Criar(cliente, itens);
 
         // Calcula o total baseado nos itens
         pedido.Total = pedido.Itens.Sum(i => i.Preco * i.Quantidade);
