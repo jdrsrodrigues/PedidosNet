@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PedidosNet.Data;
-using PedidosNet.Domain.Factories;
+using PedidosNet.Domain.Criacao;
+using PedidosNet.Domain.Descontos;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +23,14 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "PedidosNet — Sistema Ingênuo", Version = "v1" });
 });
 
-
 builder.Services.AddScoped<IPedidoFactory, PedidoFactory>();
+
+builder.Services.AddScoped<IDescontoStrategy, DescontoVip>();
+builder.Services.AddScoped<IDescontoStrategy, DescontoValorPedido>();
+builder.Services.AddScoped<IDescontoStrategy, DescontoCupom>();
+builder.Services.AddScoped<IDescontoStrategy, DescontoSemanaDosPais>();
+builder.Services.AddScoped<SeletorDescontos>();
+
 
 var app = builder.Build();
 

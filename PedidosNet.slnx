@@ -1,4 +1,3 @@
 <Solution>
   <Project Path="PedidosNet.csproj" />
-  <Project Path="PedidosNet.Domain/PedidosNet.Domain.csproj" />
 </Solution>

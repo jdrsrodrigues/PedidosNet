@@ -1,7 +1,6 @@
-using PedidosNet.Domain.Entities;
+using PedidosNet.Models;
 
-namespace PedidosNet.Domain.Factories;
-
+namespace PedidosNet.Domain.Criacao;
 public interface IPedidoFactory
 {
     Pedido Criar(Cliente cliente, IReadOnlyCollection<ItemPedido> itens);

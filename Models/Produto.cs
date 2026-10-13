@@ -7,4 +7,5 @@ public class Produto
     public string Categoria { get; set; } = string.Empty;
     public decimal Preco { get; set; }
     public int Estoque { get; set; }
+    public decimal Peso { get; set; }
 }

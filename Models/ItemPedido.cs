@@ -20,4 +20,5 @@ public class ItemPedido
     public string NomeProduto { get; set; } = string.Empty;
     public decimal Preco { get; set; }
     public int Quantidade { get; set; }
+    public decimal Peso { get; internal set; }
 }
